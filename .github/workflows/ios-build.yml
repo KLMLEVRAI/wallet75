@@ -1,0 +1,52 @@
+name: iOS Build (Unsigned IPA)
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build iOS App
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install NPM Dependencies
+        run: npm install
+
+      - name: Build Web App
+        run: npm run build
+
+      - name: Sync Capacitor iOS
+        run: npx cap sync ios
+
+      - name: Build Xcode Archive (No Signing)
+        run: |
+          cd ios/App
+          # We force code signing to NO so it builds an archive without a paid dev account
+          xcodebuild clean archive \
+            -project App.xcodeproj \
+            -scheme App \
+            -archivePath App.xcarchive \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+      - name: Extract and Generate .ipa
+        run: |
+          cd ios/App
+          # Sideloadly and AltStore accept a Payload/App.app zipped into a .ipa
+          mkdir -p Payload
+          mv App.xcarchive/Products/Applications/App.app Payload/
+          zip -qr App.ipa Payload
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MOOD-iOS-Unsigned
+          path: ios/App/App.ipa
+          retention-days: 7
