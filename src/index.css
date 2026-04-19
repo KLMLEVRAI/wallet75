@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Space+Mono:wght@400;700&display=swap");
 
 :root {
-  font-family: 'Manrope', 'Avenir Next', 'SF Pro Display', sans-serif;
+  font-family: "Manrope", "Avenir Next", "SF Pro Display", sans-serif;
   line-height: 1.3;
   font-weight: 500;
-  color: #eaf6ff;
+  color: #f0ecff;
   background:
-    radial-gradient(circle at 16% 12%, #1e4f89 0%, rgba(30, 79, 137, 0) 36%),
-    radial-gradient(circle at 88% 18%, #854040 0%, rgba(133, 64, 64, 0) 38%),
-    radial-gradient(circle at 50% 100%, #0a3f51 0%, rgba(10, 63, 81, 0) 42%),
-    #06101d;
+    radial-gradient(circle at 18% 10%, #3f267b 0%, rgba(63, 38, 123, 0) 38%),
+    radial-gradient(circle at 85% 15%, #343c8d 0%, rgba(52, 60, 141, 0) 36%),
+    radial-gradient(circle at 50% 100%, #151730 0%, rgba(21, 23, 48, 0) 40%),
+    #0a0a18;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -22,11 +22,12 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
 }
 
 #root {
-  min-height: 100vh;
+  min-height: 100svh;
 }
 
 h1,
